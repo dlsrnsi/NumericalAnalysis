@@ -15,7 +15,6 @@ def div_dif(xList, fxList ,x,result =0,n=0):
             pi = 1
             for  z in range(len(xList) - len(fxList) +1):
                 pi *= (x - xList[z])
-            print( " + (",ak*pi,')',end="")
             result += ak*pi
         nextfxList.append(ak)
     return div_dif(xList,nextfxList,x,result,n)
