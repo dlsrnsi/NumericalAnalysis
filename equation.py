@@ -1,6 +1,5 @@
-__author__ = 'Ingoo'
+__author__ = '200913215 이인구'
 import numpy as np
-import matplotlib.pylab as plt
 
 def bisection(a, b, f, tol):
     while True:
