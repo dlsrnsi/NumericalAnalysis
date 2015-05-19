@@ -13,7 +13,7 @@ def thomas(mat,b):
     print(b)
     for i in range(size - 2, -1, -1):
         x[i] = (b[i] - mat[i,i+1] * x[i + 1]) / mat[i, i]
-    print(x)
+    print("result", x)
     return x
 
 def gauss(mat, b):
@@ -27,7 +27,6 @@ def gauss(mat, b):
         if min(pset) == 0 :
             raise ValueError("No unique solution exist")
         p = i + pset.argmin()
-        print(p)
         if p is not i:
             tempmat = mat[p, :].copy()
             mat[p, :] = mat[i, :]
@@ -45,4 +44,27 @@ def gauss(mat, b):
             sum += mat[i,j] * x[j]
         x[i] = (mat[i, size] - sum) / mat[i, i]
     print(mat)
-    print(x)
+    print("result", x)
+
+def gauss_seidel(mat, b, TOL=0.00000001):#Matrix와 b를 참조변수로 받음
+    mat = np.array(mat, dtype='float')
+    b = np.array(b, dtype='float')
+    print(mat)
+    print(b)
+    #계산하기 쉽게 바꿔줌
+    x = [1] * np.shape(b)[0] # b의 길이만큼 1의 리스트를 만듬
+    while True:
+        for i in range(np.shape(mat)[0]): #행렬의 행의 길이만큼 해를 구함
+            sum = 0
+            for j in range(np.shape(mat)[0]):
+                if i is j:
+                    pass # i=j 일때는 계산 안함
+                else:
+                    sum -= mat[i, j] * x[j] #old와 new의 구분이 딱히 필요 없음
+            sum = (sum + b[i])/mat[i, i]
+            if np.abs(sum - x[i]) < TOL: #old와 new값이 TOL보다 작으면 정지
+                print(x)
+                return x
+            else : x[i] = sum
+
+
